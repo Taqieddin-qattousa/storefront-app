@@ -5,7 +5,7 @@ Full-stack e-commerce application with RESTful API backend and Angular frontend.
 ## 🏗️ Architecture
 
 - **Backend**: Node.js, Express, TypeScript, PostgreSQL
-- **Frontend**: Angular, TypeScript, SCSS
+- **Frontend**: Angular, TypeScript, CSS
 - **Database**: PostgreSQL 13+ with Docker
 - **Auth**: JWT tokens with bcrypt password hashing
 
