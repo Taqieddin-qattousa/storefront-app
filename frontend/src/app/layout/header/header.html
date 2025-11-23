@@ -1,1 +1,16 @@
-<p>header works!</p>
+<header class="header">
+  <div class="container">
+    <div class="logo">
+      <a routerLink="/">🛒 Storefront</a>
+    </div>
+
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        Products
+      </a>
+      <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+        Cart
+      </a>
+    </nav>
+  </div>
+</header>
