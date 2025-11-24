@@ -16,6 +16,11 @@ export class ProductService {
     return this.http.get<Product[]>(this.apiUrl);
   }
 
+  // Get top 5 popular products (must come before getProduct to avoid route conflict)
+  getPopularProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiUrl}/popular`);
+  }
+
   // Get product by ID
   getProduct(id: number): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}/${id}`);
@@ -24,10 +29,5 @@ export class ProductService {
   // Get products by category
   getProductsByCategory(category: string): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.apiUrl}?category=${category}`);
-  }
-
-  // Get top 5 popular products
-  getPopularProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}/popular`);
   }
 }

@@ -5,11 +5,12 @@
     </div>
 
     <nav class="nav">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         Products
       </a>
       <a routerLink="/cart" routerLinkActive="active" class="cart-link">
         Cart
+        <span class="cart-badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
       </a>
     </nav>
   </div>

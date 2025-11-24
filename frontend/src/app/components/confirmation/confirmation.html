@@ -1,1 +1,93 @@
-<p>confirmation works!</p>
+<div class="confirmation-container">
+  <!-- No order found -->
+  <div class="no-order" *ngIf="!order">
+    <div class="error-icon">❌</div>
+    <h2>No Order Found</h2>
+    <p>We couldn't find your order information.</p>
+    <button class="btn-shop" routerLink="/">Continue Shopping</button>
+  </div>
+
+  <!-- Order confirmation -->
+  <div class="confirmation-content" *ngIf="order">
+    <!-- Success message -->
+    <div class="success-banner">
+      <div class="success-icon">✓</div>
+      <h1>Order Confirmed!</h1>
+      <p>Thank you for your purchase, {{ order.firstName }}!</p>
+      <p class="order-number">Order #{{ orderNumber }}</p>
+    </div>
+
+    <div class="details-grid">
+      <!-- Order details -->
+      <div class="details-section">
+        <h2>Order Details</h2>
+
+        <div class="detail-card">
+          <h3>Shipping Address</h3>
+          <p class="detail-name">{{ order.firstName }} {{ order.lastName }}</p>
+          <p class="detail-text">{{ order.address }}</p>
+        </div>
+
+        <div class="detail-card">
+          <h3>Payment Method</h3>
+          <p class="detail-text">Credit Card: {{ getMaskedCreditCard() }}</p>
+        </div>
+
+        <div class="detail-card">
+          <h3>Delivery Estimate</h3>
+          <p class="detail-text">3-5 business days</p>
+          <p class="detail-subtext">A confirmation email has been sent to your email address.</p>
+        </div>
+      </div>
+
+      <!-- Order summary -->
+      <div class="summary-section">
+        <h2>Order Summary</h2>
+
+        <div class="summary-items">
+          <div class="summary-item" *ngFor="let item of order.items">
+            <div class="item-info">
+              <img
+                [src]="'https://via.placeholder.com/80x80?text=' + item.product.name"
+                [alt]="item.product.name"
+              />
+              <div>
+                <p class="item-name">{{ item.product.name }}</p>
+                <p class="item-quantity">Quantity: {{ item.quantity }}</p>
+                <p class="item-price">{{ item.product.price / 100 | currency }} each</p>
+              </div>
+            </div>
+            <p class="item-total">{{ getItemTotal(item) / 100 | currency }}</p>
+          </div>
+        </div>
+
+        <div class="summary-totals">
+          <div class="summary-row">
+            <span>Subtotal:</span>
+            <span>{{ order.total / 100 | currency }}</span>
+          </div>
+          <div class="summary-row">
+            <span>Tax (10%):</span>
+            <span>{{ (order.total * 0.1) / 100 | currency }}</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping:</span>
+            <span [class.free-shipping]="getShippingCost() === 0">
+              {{ getShippingCost() === 0 ? 'FREE' : (getShippingCost() | currency) }}
+            </span>
+          </div>
+          <div class="summary-row total">
+            <span>Total Paid:</span>
+            <span>{{ getTotalWithTax() / 100 | currency }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn-primary" routerLink="/">Continue Shopping</button>
+      <button class="btn-secondary" onclick="window.print()">Print Receipt</button>
+    </div>
+  </div>
+</div>

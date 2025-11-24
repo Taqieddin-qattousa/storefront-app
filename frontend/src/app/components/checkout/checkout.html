@@ -1,0 +1,140 @@
+<div class="checkout-container">
+  <h1>Checkout</h1>
+
+  <!-- Empty cart message -->
+  <div class="empty-cart" *ngIf="cartItems.length === 0">
+    <div class="empty-icon">🛒</div>
+    <h2>Your cart is empty</h2>
+    <p>Add some products before checking out!</p>
+    <button class="btn-shop" routerLink="/">Continue Shopping</button>
+  </div>
+
+  <!-- Checkout form -->
+  <div class="checkout-content" *ngIf="cartItems.length > 0">
+    <div class="checkout-form">
+      <h2>Shipping Information</h2>
+
+      <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+        <!-- First Name -->
+        <div class="form-group">
+          <label for="firstName">First Name *</label>
+          <input
+            type="text"
+            id="firstName"
+            formControlName="firstName"
+            [class.invalid]="submitted && f['firstName'].errors"
+            placeholder="John"
+          />
+          <div class="error-message" *ngIf="submitted && f['firstName'].errors">
+            <span *ngIf="f['firstName'].errors['required']">First name is required</span>
+            <span *ngIf="f['firstName'].errors['minlength']"
+              >First name must be at least 2 characters</span
+            >
+          </div>
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group">
+          <label for="lastName">Last Name *</label>
+          <input
+            type="text"
+            id="lastName"
+            formControlName="lastName"
+            [class.invalid]="submitted && f['lastName'].errors"
+            placeholder="Doe"
+          />
+          <div class="error-message" *ngIf="submitted && f['lastName'].errors">
+            <span *ngIf="f['lastName'].errors['required']">Last name is required</span>
+            <span *ngIf="f['lastName'].errors['minlength']"
+              >Last name must be at least 2 characters</span
+            >
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="form-group">
+          <label for="address">Shipping Address *</label>
+          <textarea
+            id="address"
+            formControlName="address"
+            [class.invalid]="submitted && f['address'].errors"
+            placeholder="123 Main St, City, State, ZIP"
+            rows="3"
+          ></textarea>
+          <div class="error-message" *ngIf="submitted && f['address'].errors">
+            <span *ngIf="f['address'].errors['required']">Address is required</span>
+            <span *ngIf="f['address'].errors['minlength']"
+              >Address must be at least 10 characters</span
+            >
+          </div>
+        </div>
+
+        <!-- Credit Card -->
+        <div class="form-group">
+          <label for="creditCard">Credit Card Number *</label>
+          <input
+            type="text"
+            id="creditCard"
+            formControlName="creditCard"
+            [class.invalid]="submitted && f['creditCard'].errors"
+            placeholder="1234567812345678"
+            maxlength="16"
+          />
+          <div class="error-message" *ngIf="submitted && f['creditCard'].errors">
+            <span *ngIf="f['creditCard'].errors['required']">Credit card is required</span>
+            <span *ngIf="f['creditCard'].errors['pattern']">Credit card must be 16 digits</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Complete Order</button>
+
+        <button type="button" class="btn-cancel" routerLink="/cart">Back to Cart</button>
+      </form>
+    </div>
+
+    <!-- Order summary -->
+    <div class="order-summary">
+      <h2>Order Summary</h2>
+
+      <div class="summary-items">
+        <div class="summary-item" *ngFor="let item of cartItems">
+          <div class="item-info">
+            <img
+              [src]="'https://via.placeholder.com/60x60?text=' + item.product.name"
+              [alt]="item.product.name"
+            />
+            <div>
+              <p class="item-name">{{ item.product.name }}</p>
+              <p class="item-quantity">Qty: {{ item.quantity }}</p>
+            </div>
+          </div>
+          <p class="item-price">{{ getItemTotal(item) / 100 | currency }}</p>
+        </div>
+      </div>
+
+      <div class="summary-totals">
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span>{{ total / 100 | currency }}</span>
+        </div>
+        <div class="summary-row">
+          <span>Tax (10%):</span>
+          <span>{{ (total * 0.1) / 100 | currency }}</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping:</span>
+          <span [class.free-shipping]="getShippingCost() === 0">
+            {{ getShippingCost() === 0 ? 'FREE' : (getShippingCost() | currency) }}
+          </span>
+        </div>
+        <div class="summary-notice" *ngIf="total < 5000">
+          <span>💡 Add {{ (5000 - total) / 100 | currency }} more for free shipping!</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total:</span>
+          <span>{{ getGrandTotal() / 100 | currency }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -17,7 +17,7 @@ export class ProductList implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class ProductList implements OnInit {
         this.loading = false;
         this.cdr.detectChanges();
         console.error('Error loading products:', error);
-      }
+      },
     });
   }
 }

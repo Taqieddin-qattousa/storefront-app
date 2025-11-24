@@ -1,1 +1,77 @@
-<p>product-item-detail works!</p>
+<div class="detail-container">
+  <!-- Loading state -->
+  <div class="loading" *ngIf="loading">
+    <p>Loading product details...</p>
+  </div>
+
+  <!-- Error state -->
+  <div class="error" *ngIf="errorMessage && !loading">
+    <p>{{ errorMessage }}</p>
+    <button class="btn-back" (click)="goBack()">Back to Products</button>
+  </div>
+
+  <!-- Product details -->
+  <div class="product-detail" *ngIf="product && !loading">
+    <button class="btn-back-top" (click)="goBack()">← Back to Products</button>
+
+    <div class="detail-content">
+      <div class="detail-image">
+        <img
+          [src]="'https://via.placeholder.com/500x500?text=' + product.name"
+          [alt]="product.name"
+        />
+      </div>
+
+      <div class="detail-info">
+        <p class="product-category" *ngIf="product.category">
+          {{ product.category }}
+        </p>
+
+        <h1 class="product-name">{{ product.name }}</h1>
+
+        <p class="product-price">{{ product.price / 100 | currency }}</p>
+
+        <div class="product-description">
+          <h3>Product Description</h3>
+          <p>
+            This is a high-quality {{ product.name }} from our {{ product.category }} collection.
+            Perfect for everyday use and designed to meet your needs.
+          </p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="purchase-section">
+          <div class="quantity-selector">
+            <label for="quantity">Quantity:</label>
+            <input
+              type="number"
+              id="quantity"
+              [(ngModel)]="quantity"
+              (ngModelChange)="onQuantityChange()"
+              min="1"
+              max="99"
+            />
+          </div>
+
+          <button class="btn-add-to-cart" (click)="addToCart()">Add to Cart</button>
+
+          <div class="success-message" *ngIf="showSuccess">✓ Added to cart!</div>
+
+          <button class="btn-view-cart" routerLink="/cart">View Cart</button>
+        </div>
+
+        <div class="product-features">
+          <h3>Features</h3>
+          <ul>
+            <li>High quality materials</li>
+            <li>Durable construction</li>
+            <li>Easy to use</li>
+            <li>30-day money-back guarantee</li>
+            <li>Free shipping on orders over $50</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

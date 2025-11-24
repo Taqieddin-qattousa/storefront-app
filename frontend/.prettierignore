@@ -1,0 +1,12 @@
+# Build outputs
+dist/
+.angular/
+node_modules/
+
+# Coverage
+coverage/
+
+# Package files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

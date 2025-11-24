@@ -79,7 +79,11 @@ const orderRoutes = (app: express.Application) => {
   app.post('/orders/:id/products', verifyAuthToken, addProduct);
   app.put('/orders/:id/complete', verifyAuthToken, completeOrder);
   app.get('/orders/current/:userId', verifyAuthToken, getCurrentOrderByUser);
-  app.get('/orders/completed/:userId', verifyAuthToken, getCompletedOrdersByUser);
+  app.get(
+    '/orders/completed/:userId',
+    verifyAuthToken,
+    getCompletedOrdersByUser
+  );
 };
 
 export default orderRoutes;

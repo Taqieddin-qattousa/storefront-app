@@ -5,7 +5,7 @@ Full-stack e-commerce application with RESTful API backend and Angular frontend.
 ## 🏗️ Architecture
 
 - **Backend**: Node.js, Express, TypeScript, PostgreSQL
-- **Frontend**: Angular, TypeScript, CSS
+- **Frontend**: Angular 21, TypeScript, Modern CSS
 - **Database**: PostgreSQL 13+ with Docker
 - **Auth**: JWT tokens with bcrypt password hashing
 
@@ -18,9 +18,16 @@ storefront-app/
 │   ├── migrations/   # Database migrations
 │   ├── spec/         # Jasmine tests
 │   └── README.md     # Backend documentation
-├── frontend/         # Angular web application (Coming soon)
+├── frontend/         # Angular web application
 │   ├── src/          # Angular source code
-│   └── README.md     # Frontend documentation
+│   │   ├── app/
+│   │   │   ├── components/  # UI components
+│   │   │   ├── services/    # API services
+│   │   │   ├── models/      # TypeScript models
+│   │   │   └── layout/      # Layout components
+│   │   └── styles.css       # Design system
+│   ├── DESIGN_SYSTEM.md     # Design tokens documentation
+│   └── README.md            # Frontend documentation
 └── README.md         # This file
 ```
 
@@ -29,48 +36,66 @@ storefront-app/
 ### Prerequisites
 
 - Node.js 18+
+- npm 9+
 - Docker & Docker Compose
-- Angular CLI: `npm install -g @angular/cli`
 
-### Backend Setup
+### 1. Clone and Install
+
+```bash
+git clone https://github.com/Taqieddin-qattousa/storefront-app.git
+cd storefront-app
+
+# Install backend dependencies
+cd backend
+npm install
+
+# Install frontend dependencies
+cd ../frontend
+npm install
+```
+
+### 2. Backend Setup
 
 ```bash
 cd backend
-npm install
+
+# Copy environment variables
+cp .env.example .env
+# Edit .env with your settings
+
+# Start PostgreSQL with Docker
 docker compose up -d
+
+# Run database migrations
 npm run db:up
+
+# Start backend server
 npm run dev
 ```
 
 **Backend API**: http://localhost:3000
 
-### Frontend Setup (Coming Soon)
+Test it: `curl http://localhost:3000/products`
+
+### 3. Frontend Setup
 
 ```bash
 cd frontend
-npm install
-ng serve
+
+# Start development server (proxy configured automatically)
+npm start
 ```
 
 **Frontend App**: http://localhost:4200
+
+The frontend automatically proxies `/api/*` requests to the backend at `http://localhost:3000`.
 
 ## 📚 Documentation
 
 - [Backend API Documentation](backend/README.md) - Complete API setup and endpoints
 - [Backend Requirements](backend/REQUIREMENTS.md) - API specifications and database schema
-- Frontend Documentation - Coming soon
-
-## 🧪 Testing
-
-```bash
-# Backend tests (57 specs)
-cd backend
-npm test
-
-# Frontend tests
-cd frontend
-ng test
-```
+- [Frontend Documentation](frontend/README.md) - Angular app setup and features
+- [Design System](frontend/DESIGN_SYSTEM.md) - UI design tokens and patterns
 
 ## 🎯 Features
 
@@ -84,26 +109,64 @@ ng test
 - ✅ User purchase history
 - ✅ Order completion workflow
 - ✅ 57 passing tests with full coverage
+- ✅ ESLint + Prettier configured
 
-### Frontend 🚧
+### Frontend ✅
 
-- 🚧 Product catalog and search
-- 🚧 Shopping cart management
-- 🚧 User authentication UI
-- 🚧 Order checkout and history
-- 🚧 Responsive design with Angular Material
+- ✅ Product catalog with category display
+- ✅ Product detail pages
+- ✅ Shopping cart with localStorage persistence
+- ✅ Cart badge with live item count
+- ✅ Quantity management
+- ✅ Order checkout with form validation
+- ✅ Order confirmation with receipt
+- ✅ Responsive design
+- ✅ Modern UI with comprehensive design system
+- ✅ Smooth animations and transitions
+- ✅ ESLint + Prettier configured
+
+## 🧪 Testing
+
+```bash
+# Backend tests (57 specs)
+cd backend
+npm test
+
+# Backend linting
+npm run lint
+
+# Frontend linting
+cd frontend
+npm run lint
+
+# Frontend formatting check
+npm run format:check
+```
 
 ## 🔐 Environment Variables
 
-Copy `backend/.env.example` and configure:
+### Backend (.env)
 
-- Database credentials
-- JWT secret
-- Bcrypt pepper
+```bash
+# Server
+PORT=3000
+NODE_ENV=dev
 
-See [backend/README.md](backend/README.md) for details.
+# Database
+POSTGRES_HOST=127.0.0.1
+POSTGRES_DB=store_dev
+POSTGRES_USER=store_user
+POSTGRES_PASSWORD=your_secure_password
 
-## 🚀 API Endpoints
+# Security
+BCRYPT_PASSWORD=your_pepper_string
+SALT_ROUNDS=10
+TOKEN_SECRET=your_jwt_secret_string
+```
+
+See [backend/.env.example](backend/.env.example) for template.
+
+## 🌐 API Endpoints
 
 ### Products
 - `GET /products` - Get all products

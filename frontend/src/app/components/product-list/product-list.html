@@ -13,10 +13,7 @@
 
   <!-- Products grid -->
   <div *ngIf="!loading && !errorMessage" class="product-grid">
-    <app-product-item
-      *ngFor="let product of products"
-      [product]="product">
-    </app-product-item>
+    <app-product-item *ngFor="let product of products" [product]="product"> </app-product-item>
   </div>
 
   <!-- Empty state -->
