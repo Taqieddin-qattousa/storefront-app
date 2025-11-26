@@ -1,13 +1,13 @@
 // User handlers and route registration.
 // Notes:
-// - Read operations require auth (see route wiring below).
+// - Read operations require auth (accepts both Auth0 and custom JWT tokens).
 // - Create returns a signed JWT for the newly created user.
 import express, { Request, Response } from 'express';
 import { User, UserStore } from '../models/user';
 import { OrderStore } from '../models/order';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import verifyAuthToken from '../services/auth';
+import verifyToken from '../services/combined-auth';
 
 dotenv.config();
 
@@ -67,10 +67,10 @@ const deleteUser = async (req: Request, res: Response) => {
 };
 
 const userRoutes = (app: express.Application) => {
-  app.get('/users', verifyAuthToken, index);
-  app.get('/users/:id', verifyAuthToken, show);
+  app.get('/users', verifyToken, index);
+  app.get('/users/:id', verifyToken, show);
   app.post('/users', create);
-  app.delete('/users/:id', verifyAuthToken, deleteUser);
+  app.delete('/users/:id', verifyToken, deleteUser);
 };
 
 export default userRoutes;

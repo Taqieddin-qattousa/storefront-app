@@ -96,6 +96,48 @@
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+}
+
+.user-name {
+  color: var(--text-inverse);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-auth {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+  color: var(--text-inverse);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.btn-auth:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-auth:active {
+  transform: translateY(0);
+}
+
 @media (max-width: 768px) {
   .container {
     padding: var(--space-md) var(--space-lg);
@@ -116,5 +158,19 @@
 
   .nav a::after {
     display: none;
+  }
+
+  .user-info {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .user-name {
+    max-width: 100px;
+    font-size: var(--font-size-xs);
+  }
+
+  .btn-auth {
+    padding: var(--space-xs) var(--space-md);
+    font-size: var(--font-size-xs);
   }
 }

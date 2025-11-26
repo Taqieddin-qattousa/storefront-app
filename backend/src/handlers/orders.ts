@@ -1,8 +1,8 @@
 // Order handlers and route registration.
-// All endpoints require auth.
+// All endpoints require auth (accepts both Auth0 and custom JWT tokens).
 import express, { Request, Response } from 'express';
 import { OrderStore } from '../models/order';
-import verifyAuthToken from '../services/auth';
+import verifyToken from '../services/combined-auth';
 import client from '../database';
 
 const store = new OrderStore();
@@ -75,15 +75,11 @@ const completeOrder = async (req: Request, res: Response) => {
 };
 
 const orderRoutes = (app: express.Application) => {
-  app.post('/orders', verifyAuthToken, create);
-  app.post('/orders/:id/products', verifyAuthToken, addProduct);
-  app.put('/orders/:id/complete', verifyAuthToken, completeOrder);
-  app.get('/orders/current/:userId', verifyAuthToken, getCurrentOrderByUser);
-  app.get(
-    '/orders/completed/:userId',
-    verifyAuthToken,
-    getCompletedOrdersByUser
-  );
+  app.post('/orders', verifyToken, create);
+  app.post('/orders/:id/products', verifyToken, addProduct);
+  app.put('/orders/:id/complete', verifyToken, completeOrder);
+  app.get('/orders/current/:userId', verifyToken, getCurrentOrderByUser);
+  app.get('/orders/completed/:userId', verifyToken, getCompletedOrdersByUser);
 };
 
 export default orderRoutes;

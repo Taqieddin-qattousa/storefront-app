@@ -12,6 +12,16 @@
         Cart
         <span class="cart-badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
       </a>
+
+      <ng-container *ngIf="authService.isAuthenticated$ | async; else loginButton">
+        <div class="user-info">
+          <span class="user-name">{{ (authService.user$ | async)?.name }}</span>
+          <button class="btn-auth" (click)="logout()">Logout</button>
+        </div>
+      </ng-container>
+      <ng-template #loginButton>
+        <button class="btn-auth" (click)="login()">Login</button>
+      </ng-template>
     </nav>
   </div>
 </header>

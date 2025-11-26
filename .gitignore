@@ -3,6 +3,10 @@
 backend/.env
 frontend/.env
 
+# Frontend environment files with credentials
+frontend/src/environments/environment.ts
+frontend/src/environments/environment.prod.ts
+
 # Dependencies
 node_modules/
 backend/node_modules/
