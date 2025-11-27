@@ -149,8 +149,11 @@ See [REQUIREMENTS.md](REQUIREMENTS.md) for detailed endpoint documentation with 
 - `GET /products?category=Books` - Filter products by category (public)
 - `GET /products/popular` - Get top 5 most ordered products (public)
 - `POST /products` - Create product **[Token Required]**
+- `POST /products/:id/image` - Upload product image to S3 **[Token Required]**
 - `PUT /products/:id` - Update product **[Token Required]**
 - `DELETE /products/:id` - Delete product **[Token Required]**
+
+**Note:** Products include `image_url` field with AWS S3 URLs for images.
 
 ### Users
 

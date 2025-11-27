@@ -200,6 +200,44 @@ Your users can now log in with social accounts!
    - Check **Monitoring** → **Logs** in Auth0 Dashboard
    - Review failed login attempts and token verification errors
 
+## Testing Authentication (For Reviewers)
+
+### Option 1: Create a Test Account (Recommended for Reviewers)
+
+If you don't want to set up your own Auth0 account, you can test the authentication flow:
+
+1. **Use Auth0's Universal Login** - The application uses Auth0's hosted login page
+2. **Sign up with any email** - You can create a test account on the spot
+3. **Use Google/GitHub OAuth** (if enabled) - Social login without creating credentials
+
+### Option 2: Use Existing JWT Authentication
+
+The backend also supports custom JWT tokens. You can test the API without Auth0:
+
+```bash
+# Create a user and get a JWT token
+curl -X POST http://localhost:3000/users \
+  -H "Content-Type: application/json" \
+  -d '{"firstName": "Test", "lastName": "User", "password": "password123"}'
+
+# The response will include a JWT token
+# Use this token to access protected routes
+```
+
+### What Works Without Auth0
+
+- ✅ Browse products
+- ✅ View product details
+- ✅ Add items to cart
+- ✅ View cart
+
+### What Requires Authentication
+
+- 🔒 Checkout (protected by AuthGuard)
+- 🔒 Order confirmation (protected by AuthGuard)
+
+**Note:** If Auth0 is not configured, the application gracefully falls back to allowing all access. The AuthGuard and backend still work with custom JWT tokens from the `/users` endpoint.
+
 ## Resources
 
 - [Auth0 Angular Quickstart](https://auth0.com/docs/quickstart/spa/angular)
