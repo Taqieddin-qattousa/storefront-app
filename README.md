@@ -71,6 +71,9 @@ docker compose up -d
 # Run database migrations
 npm run db:up
 
+# Seed database with sample products (16 products)
+npm run db:seed
+
 # Start backend server
 npm run dev
 ```
@@ -78,6 +81,8 @@ npm run dev
 **Backend API**: http://localhost:3000
 
 Test it: `curl http://localhost:3000/products`
+
+**Database Seeding:** The `npm run db:seed` command populates the database with 16 sample products. Run this command anytime your database is reset or empty.
 
 ### 3. Frontend Setup
 

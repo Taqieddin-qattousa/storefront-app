@@ -18,12 +18,22 @@
 }
 
 .logo a {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-inverse);
+  display: flex;
+  align-items: center;
   text-decoration: none;
   transition: all var(--transition-base);
-  letter-spacing: -0.5px;
+}
+
+.logo-svg {
+  height: 48px;
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: all var(--transition-base);
+}
+
+.logo a:hover .logo-svg {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  transform: scale(1.05);
 }
 
 .logo a:hover {

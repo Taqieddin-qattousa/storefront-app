@@ -15,7 +15,7 @@
       <div class="cart-item" *ngFor="let item of cartItems">
         <div class="item-image">
           <img
-            [src]="'https://via.placeholder.com/120x120?text=' + item.product.name"
+            [src]="item.product.image_url || '/assets/images/products/' + item.product.id + '.jpg'"
             [alt]="item.product.name"
           />
         </div>
@@ -76,7 +76,7 @@
         <span class="summary-value">{{ getGrandTotal() / 100 | currency }}</span>
       </div>
 
-      <button class="btn-checkout" routerLink="/checkout">Proceed to Checkout</button>
+      <button class="btn-checkout" (click)="proceedToCheckout()">Proceed to Checkout</button>
 
       <button class="btn-clear" (click)="clearCart()">Clear Cart</button>
 

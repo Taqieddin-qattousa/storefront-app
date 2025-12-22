@@ -35,9 +35,12 @@ export class ProductItem {
   }
 
   onQuantityChange(): void {
-    // Ensure quantity is at least 1
+    // Ensure quantity is between 1 and 99
     if (this.quantity < 1) {
       this.quantity = 1;
+    }
+    if (this.quantity > 99) {
+      this.quantity = 99;
     }
   }
 }

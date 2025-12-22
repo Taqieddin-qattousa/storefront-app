@@ -70,8 +70,12 @@ export class ProductItemDetail implements OnInit {
   }
 
   onQuantityChange(): void {
+    // Ensure quantity is between 1 and 99
     if (this.quantity < 1) {
       this.quantity = 1;
+    }
+    if (this.quantity > 99) {
+      this.quantity = 99;
     }
   }
 

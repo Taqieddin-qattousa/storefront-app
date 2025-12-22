@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CartService } from '../../services/cart';
 import { CartItem } from '../../models/cart-item';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -14,7 +15,11 @@ export class Cart implements OnInit {
   cartItems: CartItem[] = [];
   total: number = 0;
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.cartService.getCartItems().subscribe((items) => {
@@ -28,6 +33,13 @@ export class Cart implements OnInit {
   }
 
   updateQuantity(productId: number, quantity: number): void {
+    // Ensure quantity is between 1 and 99
+    if (quantity < 1) {
+      quantity = 1;
+    }
+    if (quantity > 99) {
+      quantity = 99;
+    }
     this.cartService.updateQuantity(productId, quantity);
   }
 
@@ -48,5 +60,17 @@ export class Cart implements OnInit {
 
   getGrandTotal(): number {
     return this.total + this.total * 0.1 + this.getShippingCost();
+  }
+
+  proceedToCheckout(): void {
+    this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.router.navigate(['/checkout']);
+      } else {
+        alert('Please login or sign up to proceed with checkout.');
+        // Optionally trigger login
+        this.authService.login();
+      }
+    });
   }
 }
