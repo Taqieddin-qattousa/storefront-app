@@ -7,7 +7,7 @@ import { Product } from '../models/product';
   providedIn: 'root',
 })
 export class ProductService {
-  private apiUrl = '/api/products';
+  private apiUrl = 'https://storefront-app-3yxo.onrender.com/products';
 
   constructor(private http: HttpClient) {}
 

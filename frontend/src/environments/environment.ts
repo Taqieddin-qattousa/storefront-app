@@ -14,7 +14,7 @@ export const environment = {
     httpInterceptor: {
       allowedList: [
         {
-          uri: '/api/users*',
+          uri: 'https://storefront-app-3yxo.onrender.com/users*',
           tokenOptions: {
             authorizationParams: {
               // audience: 'https://storefront-api'
@@ -22,7 +22,7 @@ export const environment = {
           },
         },
         {
-          uri: '/api/orders*',
+          uri: 'https://storefront-app-3yxo.onrender.com/orders*',
           tokenOptions: {
             authorizationParams: {
               // audience: 'https://storefront-api'
