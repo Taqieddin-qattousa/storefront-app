@@ -12,6 +12,7 @@ const {
   POSTGRES_DB_TEST,
   POSTGRES_USER_TEST,
   POSTGRES_PASSWORD_TEST,
+  DATABASE_URL,
   NODE_ENV,
 } = process.env;
 
@@ -24,7 +25,16 @@ if (NODE_ENV === 'test') {
     user: POSTGRES_USER_TEST || POSTGRES_USER,
     password: POSTGRES_PASSWORD_TEST || POSTGRES_PASSWORD,
   });
+} else if (DATABASE_URL) {
+  // Use DATABASE_URL for production (Render/Neon)
+  client = new Pool({
+    connectionString: DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false, // Required for Neon
+    },
+  });
 } else {
+  // Use individual env vars for local development
   client = new Pool({
     host: POSTGRES_HOST,
     database: POSTGRES_DB,
