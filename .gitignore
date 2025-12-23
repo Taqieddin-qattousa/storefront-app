@@ -3,9 +3,8 @@
 backend/.env
 frontend/.env
 
-# Frontend environment files with credentials
-frontend/src/environments/environment.ts
-frontend/src/environments/environment.prod.ts
+# Note: frontend/src/environments/environment.ts is now committed for deployment
+# Auth0 clientId is public and safe to commit
 
 # Dependencies
 node_modules/
