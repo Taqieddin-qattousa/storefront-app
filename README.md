@@ -2,6 +2,34 @@
 
 Full-stack e-commerce application with RESTful API backend and Angular frontend.
 
+---
+
+## 🌐 Live Demo
+
+**👉 [View Live Demo](https://storefront-frontend-8pss.onrender.com) 👈**
+
+> **Note:** Backend may take 30-60 seconds to wake up on first visit (free tier limitation)
+
+---
+
+## 📋 Table of Contents
+
+- [Live Demo](#-live-demo)
+- [Architecture](#️-architecture)
+- [Project Structure](#-project-structure)
+- [Quick Start](#-quick-start)
+- [Testing](#-testing)
+- [Optional Features](#-optional-features)
+- [Documentation](#-documentation)
+- [Features](#-features)
+- [Stand Out Features](#-stand-out-features-all-implemented)
+- [Environment Variables](#-environment-variables)
+- [API Endpoints](#-api-endpoints)
+- [License](#-license)
+- [Author](#-author)
+
+---
+
 ## 🏗️ Architecture
 
 - **Backend**: Node.js, Express, TypeScript, PostgreSQL
